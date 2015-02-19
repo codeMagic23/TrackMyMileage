@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TrackMyMileage</string>
+    <string name="title_activity_input_mileage">InputMileage</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_vehicle_input">VehicleInput</string>
+    <string name="title_activity_vehicle_list">VehicleList</string>
+
+</resources>

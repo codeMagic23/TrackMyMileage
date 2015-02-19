@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.codemagic.trackmymileage" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".InputMileage"
+            android:label="@string/title_activity_input_mileage" >
+        </activity>
+        <activity
+            android:name=".VehicleInput"
+            android:label="@string/title_activity_vehicle_input" >
+        </activity>
+        <activity
+            android:name=".VehicleList"
+            android:label="@string/title_activity_vehicle_list" >
+        </activity>
+    </application>
+
+</manifest>
