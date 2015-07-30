@@ -1,17 +1,57 @@
 package com.codemagic.trackmymileage;
 
+import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.codemagic.TrackMyMileageDB.database.dao.DaoMaster;
+import com.codemagic.TrackMyMileageDB.database.dao.DaoSession;
+import com.codemagic.TrackMyMileageDB.database.dao.FillLog;
+import com.codemagic.TrackMyMileageDB.database.dao.FillLogDao;
+import com.codemagic.TrackMyMileageDB.database.dao.Vehicle;
+import com.codemagic.TrackMyMileageDB.database.dao.VehicleDao;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+import adapters.FillLogAdapter;
 
 
-public class FillLogList extends ActionBarActivity {
+public class FillLogList extends Activity {
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private ArrayList<String> data;
+
+    private List<FillLog> fillLogs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fill_log_list);
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        data = getData();
+      //  Toast.makeText(this, "Data in List: " + data.toString(), Toast.LENGTH_SHORT).show();
+        // specify an adapter
+        mAdapter = new FillLogAdapter(this, R.layout.mileage_card, data);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
 
@@ -35,5 +75,28 @@ public class FillLogList extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private ArrayList<String> getData() {
+        ArrayList<String> data = new ArrayList<String>();
+
+        // get data from db
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "filllog-db", null);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(db);
+        DaoSession daoSession = daoMaster.newSession();
+        FillLogDao logDao = daoSession.getFillLogDao();
+
+        fillLogs = logDao.queryBuilder()
+                .where(FillLogDao.Properties.Gallons.isNotNull()).list();
+
+        for (FillLog log:fillLogs) {
+            Toast.makeText(this, "Data in List: " + log.toString(), Toast.LENGTH_SHORT).show();
+            data.add("Date" + String.valueOf(log.getFillDate()) + "Mileage: " + log.getCurMiles());
+
+        }
+
+        return data;
+
     }
 }

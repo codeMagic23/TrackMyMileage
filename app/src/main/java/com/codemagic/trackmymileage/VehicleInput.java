@@ -10,10 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import com.codemagic.TrackMyMileage.database.dao.DaoMaster;
-import com.codemagic.TrackMyMileage.database.dao.DaoSession;
-import com.codemagic.TrackMyMileage.database.dao.Vehicle;
-import com.codemagic.TrackMyMileage.database.dao.VehicleDao;
+import com.codemagic.TrackMyMileageDB.database.dao.DaoMaster;
+import com.codemagic.TrackMyMileageDB.database.dao.DaoSession;
+import com.codemagic.TrackMyMileageDB.database.dao.Vehicle;
+import com.codemagic.TrackMyMileageDB.database.dao.VehicleDao;
 
 
 public class VehicleInput extends ActionBarActivity {

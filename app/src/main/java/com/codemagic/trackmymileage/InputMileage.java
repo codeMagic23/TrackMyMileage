@@ -3,23 +3,26 @@ package com.codemagic.trackmymileage;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.codemagic.TrackMyMileage.database.dao.DaoMaster;
-import com.codemagic.TrackMyMileage.database.dao.DaoSession;
-import com.codemagic.TrackMyMileage.database.dao.VehicleDao;
+import com.codemagic.TrackMyMileageDB.database.dao.DaoMaster;
+import com.codemagic.TrackMyMileageDB.database.dao.DaoSession;
+import com.codemagic.TrackMyMileageDB.database.dao.FillLog;
+import com.codemagic.TrackMyMileageDB.database.dao.FillLogDao;
+import com.codemagic.TrackMyMileageDB.database.dao.VehicleDao;
 
-import de.greenrobot.dao.AbstractDaoMaster;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Formatter;
+import java.util.Locale;
 
 
 public class InputMileage extends Activity {
@@ -37,10 +40,27 @@ public class InputMileage extends Activity {
         SQLiteDatabase db = helper.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(db);
         DaoSession daoSession = daoMaster.newSession();
-        VehicleDao vehicleDao = daoSession.getVehicleDao();
+        FillLogDao fillDao = daoSession.getFillLogDao();
 
         //get values from EditTexts to insert to db
+        long mileage = Long.valueOf(((EditText) findViewById(R.id.mileage)).getText().toString());
+        double gallons = Double.valueOf(((EditText) findViewById(R.id.gallons)).getText().toString());
+        double price = Double.valueOf(((EditText) findViewById(R.id.pricePerGallon)).getText().toString());
+        SimpleDateFormat format = new SimpleDateFormat("yy/mm/dd");
+        Date fillDate = new Date(System.currentTimeMillis());
+        try {
+            fillDate = fillDate = format.parse(((TextView) findViewById(R.id.date)).getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
+        FillLog log = new FillLog(fillDate, gallons, price, mileage, ((TextView) findViewById(R.id.vehicleName)).getText().toString());
+        Long inserted = fillDao.insert(log);
+
+        Toast.makeText(v.getContext(), "Inserted: " + inserted.toString(), Toast.LENGTH_SHORT).show();
+
+        Intent i = new Intent(v.getContext(), FillLogList.class);
+        startActivity(i);
 
         Toast.makeText(v.getContext(), "Data Saved!", Toast.LENGTH_SHORT).show();
     }

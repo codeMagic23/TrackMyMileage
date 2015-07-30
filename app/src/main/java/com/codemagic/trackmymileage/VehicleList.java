@@ -1,29 +1,22 @@
 package com.codemagic.trackmymileage;
 
-import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.codemagic.TrackMyMileage.database.dao.DaoMaster;
-import com.codemagic.TrackMyMileage.database.dao.DaoSession;
-import com.codemagic.TrackMyMileage.database.dao.Vehicle;
-import com.codemagic.TrackMyMileage.database.dao.VehicleDao;
+import com.codemagic.TrackMyMileageDB.database.dao.DaoMaster;
+import com.codemagic.TrackMyMileageDB.database.dao.DaoSession;
+import com.codemagic.TrackMyMileageDB.database.dao.Vehicle;
+import com.codemagic.TrackMyMileageDB.database.dao.VehicleDao;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.greenrobot.dao.query.QueryBuilder;
 
 
 public class VehicleList extends ActionBarActivity {
