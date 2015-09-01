@@ -18,6 +18,7 @@ import com.codemagic.TrackMyMileageDB.database.dao.Vehicle;
 import com.codemagic.TrackMyMileageDB.database.dao.VehicleDao;
 
 import java.lang.reflect.Array;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,10 +90,13 @@ public class FillLogList extends Activity {
 
         fillLogs = logDao.queryBuilder()
                 .where(FillLogDao.Properties.Gallons.isNotNull()).list();
-
+        DecimalFormat format = new DecimalFormat("$#.##");
         for (FillLog log:fillLogs) {
-            Toast.makeText(this, "Data in List: " + log.toString(), Toast.LENGTH_SHORT).show();
-            data.add("Date" + String.valueOf(log.getFillDate()) + "Mileage: " + log.getCurMiles());
+            data.add(String.valueOf(log.getFillDate()) + "\n"
+                    + "Mileage: " + log.getCurMiles() + "\n"
+                    + "Price per gallon: " + log.getPricePerGallon() + "\n"
+                    + "Gallons: " + log.getGallons() + "\n"
+                    + "Total Cost: " + format.format(log.getGallons() * log.getPricePerGallon()));
 
         }
 

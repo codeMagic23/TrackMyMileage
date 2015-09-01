@@ -22,7 +22,6 @@ public class FillLogAdapter extends RecyclerView.Adapter<FillLogAdapter.ViewHold
 
     public FillLogAdapter(Context context, int resource, ArrayList<String> data) {
         mData = data;
-        Toast.makeText(context, data.toString(), Toast.LENGTH_SHORT).show();
     }
 
     // Create new views (invoked by the layout manager)

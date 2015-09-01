@@ -46,10 +46,10 @@ public class InputMileage extends Activity {
         long mileage = Long.valueOf(((EditText) findViewById(R.id.mileage)).getText().toString());
         double gallons = Double.valueOf(((EditText) findViewById(R.id.gallons)).getText().toString());
         double price = Double.valueOf(((EditText) findViewById(R.id.pricePerGallon)).getText().toString());
-        SimpleDateFormat format = new SimpleDateFormat("yy/mm/dd");
+        SimpleDateFormat format = new SimpleDateFormat("yy/M/d", Locale.US);
         Date fillDate = new Date(System.currentTimeMillis());
         try {
-            fillDate = fillDate = format.parse(((TextView) findViewById(R.id.date)).getText().toString());
+            fillDate = format.parse(((TextView) findViewById(R.id.date)).getText().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
