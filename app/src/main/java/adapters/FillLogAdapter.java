@@ -13,9 +13,6 @@ import com.codemagic.trackmymileage.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by root on 7/29/15.
- */
 public class FillLogAdapter extends RecyclerView.Adapter<FillLogAdapter.ViewHolder> {
 
     private ArrayList<String> mData;
