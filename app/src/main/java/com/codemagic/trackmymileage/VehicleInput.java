@@ -20,26 +20,19 @@ public class VehicleInput extends ActionBarActivity {
 
     private SQLiteDatabase db;
 
-    EditText makeET;
-    EditText yearET;
-    EditText engTypeET;
-    EditText vehicleID;
-    EditText vehicleNameET;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vehicle_input);
-
-     //   vehicleID = (EditText) findViewById(R.id.vehicleID);
-        makeET = (EditText) findViewById(R.id.make);
-        yearET = (EditText) findViewById(R.id.year);
-        engTypeET = (EditText) findViewById(R.id.engType);
-        vehicleNameET = (EditText) findViewById(R.id.vehicleName);
-
     }
 
     public void saveVehicleInfo(View v) {
+        //   vehicleID = (EditText) findViewById(R.id.vehicleID);
+        EditText makeET = (EditText) findViewById(R.id.make);
+        EditText yearET = (EditText) findViewById(R.id.year);
+        EditText  engTypeET = (EditText) findViewById(R.id.engType);
+        EditText vehicleNameET = (EditText) findViewById(R.id.vehicleName);
+
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "vehicle-db", null);
    //     new DaoMaster.DevOpenHelper(v.getContext(), "vehicle-db", null);
         db = helper.getWritableDatabase();

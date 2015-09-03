@@ -21,7 +21,6 @@ import java.util.List;
 
 public class VehicleList extends ActionBarActivity {
 
-    ListView lv;
     ArrayList<Vehicle>  list = new ArrayList<Vehicle>();
     private List<Vehicle> vehicles;
 
@@ -29,7 +28,7 @@ public class VehicleList extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vehicle_list);
-        lv = (ListView) findViewById(R.id.vehicleList);
+       ListView lv = (ListView) findViewById(R.id.vehicleList);
 
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "vehicle-db", null);
         SQLiteDatabase db = helper.getWritableDatabase();
