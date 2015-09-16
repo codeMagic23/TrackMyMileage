@@ -26,6 +26,7 @@ public class FillLogDao extends AbstractDao<FillLog, Void> {
         public final static Property PricePerGallon = new Property(2, Double.class, "pricePerGallon", false, "PRICE_PER_GALLON");
         public final static Property CurMiles = new Property(3, long.class, "curMiles", false, "CUR_MILES");
         public final static Property VehicleName = new Property(4, String.class, "vehicleName", false, "VEHICLE_NAME");
+        public final static Property MPG = new Property(5, String.class, "mpg", false, "MPG");
     };
 
 
@@ -45,7 +46,8 @@ public class FillLogDao extends AbstractDao<FillLog, Void> {
                 "'GALLONS' REAL NOT NULL ," + // 1: gallons
                 "'PRICE_PER_GALLON' REAL," + // 2: pricePerGallon
                 "'CUR_MILES' INTEGER NOT NULL ," + // 3: curMiles
-                "'VEHICLE_NAME' TEXT NOT NULL );"); // 4: vehicleName
+                "'VEHICLE_NAME' TEXT NOT NULL ," + // 4: vehicleName
+                "'MPG' DOUBLE);");  //5: mpg
     }
 
     /** Drops the underlying database table. */
@@ -67,6 +69,7 @@ public class FillLogDao extends AbstractDao<FillLog, Void> {
         }
         stmt.bindLong(4, entity.getCurMiles());
         stmt.bindString(5, entity.getVehicleName());
+        stmt.bindDouble(6, entity.getMpg());
     }
 
     /** @inheritdoc */
@@ -83,7 +86,8 @@ public class FillLogDao extends AbstractDao<FillLog, Void> {
             cursor.getDouble(offset + 1), // gallons
             cursor.isNull(offset + 2) ? null : cursor.getDouble(offset + 2), // pricePerGallon
             cursor.getLong(offset + 3), // curMiles
-            cursor.getString(offset + 4) // vehicleName
+            cursor.getString(offset + 4), // vehicleName
+            cursor.getDouble(offset + 5) //mpg
         );
         return entity;
     }
@@ -96,6 +100,7 @@ public class FillLogDao extends AbstractDao<FillLog, Void> {
         entity.setPricePerGallon(cursor.isNull(offset + 2) ? null : cursor.getDouble(offset + 2));
         entity.setCurMiles(cursor.getLong(offset + 3));
         entity.setVehicleName(cursor.getString(offset + 4));
+        entity.setMpg(cursor.getDouble(offset + 5));
      }
     
     /** @inheritdoc */

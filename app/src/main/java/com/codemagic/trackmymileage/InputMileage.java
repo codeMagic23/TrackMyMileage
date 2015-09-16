@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Formatter;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -41,10 +43,29 @@ public class InputMileage extends Activity {
         DaoMaster daoMaster = new DaoMaster(db);
         DaoSession daoSession = daoMaster.newSession();
         FillLogDao fillDao = daoSession.getFillLogDao();
-
-        //get values from EditTexts to insert to db
         long mileage = Long.valueOf(((EditText) findViewById(R.id.mileage)).getText().toString());
         double gallons = Double.valueOf(((EditText) findViewById(R.id.gallons)).getText().toString());
+        double mpg = 0;
+
+        if (fillDao.count() > 0) {
+            Log.i("TAG", "Count: " + fillDao.count());
+            // ToDo get the mileage from the last log
+            // get the last mileage entered to obtain mpg
+            List<FillLog> prevEntry = fillDao.queryBuilder().where(FillLogDao.Properties.CurMiles.isNotNull()).limit(1).list();
+            long prevMileage = 0;
+
+            if (prevEntry != null) {
+                for (FillLog entry : prevEntry) {
+                    prevMileage = entry.getCurMiles();
+                }
+
+                mpg = (mileage - prevMileage) / gallons;
+            }
+        }
+
+        //get values from EditTexts to insert to db
+
+
         double price = Double.valueOf(((EditText) findViewById(R.id.pricePerGallon)).getText().toString());
         SimpleDateFormat format = new SimpleDateFormat("yy/M/d", Locale.US);
         Date fillDate = new Date(System.currentTimeMillis());
@@ -54,7 +75,8 @@ public class InputMileage extends Activity {
             e.printStackTrace();
         }
 
-        FillLog log = new FillLog(fillDate, gallons, price, mileage, ((TextView) findViewById(R.id.vehicleName)).getText().toString());
+
+        FillLog log = new FillLog(fillDate, gallons, price, mileage, ((TextView) findViewById(R.id.vehicleName)).getText().toString(), mpg);
         Long inserted = fillDao.insert(log);
 
         Toast.makeText(v.getContext(), "Inserted: " + inserted.toString(), Toast.LENGTH_SHORT).show();

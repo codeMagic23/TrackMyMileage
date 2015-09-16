@@ -96,7 +96,8 @@ public class FillLogList extends Activity {
                     + "Mileage: " + log.getCurMiles() + "\n"
                     + "Price per gallon: " + log.getPricePerGallon() + "\n"
                     + "Gallons: " + log.getGallons() + "\n"
-                    + "Total Cost: " + format.format(log.getGallons() * log.getPricePerGallon()));
+                    + "Total Cost: " + format.format(log.getGallons() * log.getPricePerGallon()) + "\n"
+                    + "MPG: " + log.getMpg());
 
         }
 
