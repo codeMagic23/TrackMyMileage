@@ -1,23 +1,19 @@
 package com.codemagic.trackmymileage;
 
-import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.codemagic.TrackMyMileageDB.database.dao.DaoMaster;
 import com.codemagic.TrackMyMileageDB.database.dao.DaoSession;
 import com.codemagic.TrackMyMileageDB.database.dao.FillLog;
 import com.codemagic.TrackMyMileageDB.database.dao.FillLogDao;
-import com.codemagic.TrackMyMileageDB.database.dao.Vehicle;
-import com.codemagic.TrackMyMileageDB.database.dao.VehicleDao;
 
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +21,7 @@ import java.util.List;
 import adapters.FillLogAdapter;
 
 
-public class FillLogList extends Activity {
+public class FillLogList extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -39,6 +35,9 @@ public class FillLogList extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fill_log_list);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        Toolbar toolBar = (Toolbar) findViewById(R.id.myToolBar);
+        setSupportActionBar(toolBar);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
