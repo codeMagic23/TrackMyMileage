@@ -83,8 +83,8 @@ public class InputMileage extends Activity {
 
         Intent i = new Intent(v.getContext(), FillLogList.class);
         startActivity(i);
+        finish();
 
-        Toast.makeText(v.getContext(), "Data Saved!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

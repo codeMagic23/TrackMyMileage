@@ -12,12 +12,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="4dp">
-
-        <TextView
-            android:id="@+id/info_text"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="some text"/>
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/dateTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="September 16, 2015"/>
+            <TextView
+                android:id="@+id/milesTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dateTV"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:text="150000 miles"/>
+            <TextView
+                android:id="@+id/gallonsTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/milesTV"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:text="24 gals"/>
+            <TextView
+                android:id="@+id/gallonPriceTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/milesTV"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:text="$2.88/gal"/>
+            <TextView
+                android:id="@+id/totalCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/milesTV"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:text="$53.24"/>
+            <TextView
+                android:id="@+id/mpgTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/gallonsTV"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:text="24 mpg"/>
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

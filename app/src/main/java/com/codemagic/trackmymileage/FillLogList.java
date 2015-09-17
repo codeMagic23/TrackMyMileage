@@ -37,7 +37,7 @@ public class FillLogList extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         Toolbar toolBar = (Toolbar) findViewById(R.id.myToolBar);
-        setSupportActionBar(toolBar);
+//        setSupportActionBar(toolBar);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
