@@ -9,15 +9,16 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codemagic.TrackMyMileageDB.database.dao.FillLog;
 import com.codemagic.trackmymileage.R;
 
 import java.util.ArrayList;
 
 public class FillLogAdapter extends RecyclerView.Adapter<FillLogAdapter.ViewHolder> {
 
-    private ArrayList<String> mData;
+    private ArrayList<FillLog> mData;
 
-    public FillLogAdapter(Context context, int resource, ArrayList<String> data) {
+    public FillLogAdapter(Context context, int resource, ArrayList<FillLog> data) {
         mData = data;
     }
 
@@ -37,8 +38,16 @@ public class FillLogAdapter extends RecyclerView.Adapter<FillLogAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mData.get(position));
+        double gallons = mData.get(position).getGallons();
+        double pricePer = mData.get(position).getPricePerGallon();
+        String cost = String.valueOf(gallons*pricePer);
 
+        holder.dateTV.setText(mData.get(position).getFillDate().toString());
+        holder.mileageTV.setText(mData.get(position).getCurMiles() + " miles");
+        holder.gallonsTV.setText(gallons + " gals");
+        holder.priceTV.setText("$" + pricePer + "/gal");
+        holder.totalCostTV.setText("$" + cost);
+        holder.mpgTV.setText(mData.get(position).getMpg() + "mpg");
     }
 
     @Override
@@ -49,10 +58,15 @@ public class FillLogAdapter extends RecyclerView.Adapter<FillLogAdapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         // Views for the list rows
-        public TextView mTextView;
+        public TextView dateTV, mileageTV, gallonsTV, priceTV, totalCostTV, mpgTV;
         public ViewHolder (View v) {
             super(v);
-            mTextView = (TextView) v.findViewById(R.id.info_text);
+            dateTV = (TextView) v.findViewById(R.id.dateTV);
+            mileageTV = (TextView) v.findViewById(R.id.milesTV);
+            gallonsTV = (TextView) v.findViewById(R.id.gallonsTV);
+            priceTV = (TextView) v.findViewById(R.id.gallonPriceTV);
+            totalCostTV = (TextView) v.findViewById(R.id.totalCostTV);
+            mpgTV = (TextView) v.findViewById(R.id.mpgTV);
         }
     }
 }

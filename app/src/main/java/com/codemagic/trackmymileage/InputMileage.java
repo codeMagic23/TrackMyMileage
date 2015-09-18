@@ -59,7 +59,8 @@ public class InputMileage extends Activity {
                     prevMileage = entry.getCurMiles();
                 }
 
-                mpg = (mileage - prevMileage) / gallons;
+                mpg = Math.round((mileage - prevMileage) / gallons);
+                Toast.makeText(this, "MPG: " + mpg, Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -68,18 +69,21 @@ public class InputMileage extends Activity {
 
         double price = Double.valueOf(((EditText) findViewById(R.id.pricePerGallon)).getText().toString());
         SimpleDateFormat format = new SimpleDateFormat("yy/M/d", Locale.US);
+        Date fillDate = new Date();
+     /*
         Date fillDate = new Date(System.currentTimeMillis());
         try {
             fillDate = format.parse(((TextView) findViewById(R.id.date)).getText().toString());
+            Toast.makeText(this, "Date: " + fillDate, Toast.LENGTH_SHORT).show();
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+    */
 
         FillLog log = new FillLog(fillDate, gallons, price, mileage, ((TextView) findViewById(R.id.vehicleName)).getText().toString(), mpg);
         Long inserted = fillDao.insert(log);
 
-        Toast.makeText(v.getContext(), "Inserted: " + inserted.toString(), Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(v.getContext(), "Inserted: " + inserted.toString(), Toast.LENGTH_SHORT).show();
 
         Intent i = new Intent(v.getContext(), FillLogList.class);
         startActivity(i);

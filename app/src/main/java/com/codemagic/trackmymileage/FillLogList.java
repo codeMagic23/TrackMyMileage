@@ -26,7 +26,7 @@ public class FillLogList extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<String> data;
+    private ArrayList<FillLog> data;
 
     private List<FillLog> fillLogs;
 
@@ -77,8 +77,8 @@ public class FillLogList extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private ArrayList<String> getData() {
-        ArrayList<String> data = new ArrayList<String>();
+    private ArrayList<FillLog> getData() {
+        ArrayList<FillLog> data = new ArrayList<FillLog>();
 
         // get data from db
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "filllog-db", null);
@@ -88,15 +88,22 @@ public class FillLogList extends AppCompatActivity {
         FillLogDao logDao = daoSession.getFillLogDao();
 
         fillLogs = logDao.queryBuilder()
-                .where(FillLogDao.Properties.Gallons.isNotNull()).list();
+                .where(FillLogDao.Properties.Gallons.isNotNull()).orderDesc(FillLogDao.Properties.FillDate).list();
         DecimalFormat format = new DecimalFormat("$#.##");
         for (FillLog log:fillLogs) {
-            data.add(String.valueOf(log.getFillDate()) + "\n"
-                    + "Mileage: " + log.getCurMiles() + "\n"
-                    + "Price per gallon: " + log.getPricePerGallon() + "\n"
+            data.add(log);
+            /*
+            log.setFillDate(log.getFillDate());
+            log.setCurMiles(log.getCurMiles());
+            log.setPricePerGallon(log.getPricePerGallon());
+            log.setGallons(log.getGallons());
+
+            data.add(String.valueOf(
+
+
                     + "Gallons: " + log.getGallons() + "\n"
                     + "Total Cost: " + format.format(log.getGallons() * log.getPricePerGallon()) + "\n"
-                    + "MPG: " + log.getMpg());
+                    + "MPG: " + log.getMpg());*/
 
         }
 
