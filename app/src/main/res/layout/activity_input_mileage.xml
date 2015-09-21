@@ -19,29 +19,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="4/9/1980"/>
-    <EditText
-        android:id="@+id/mileage"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Enter your current mileage"
-        android:layout_marginTop="20dp"
-        android:inputType="numberDecimal"/>
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/mileage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Enter your current mileage"
+            android:layout_marginTop="20dp"
+            android:inputType="numberDecimal"/>
 
-    <EditText
-        android:id="@+id/gallons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Enter amt of gallons"
-        android:layout_marginTop="20dp"
-        android:inputType="numberDecimal"/>
+        <EditText
+            android:id="@+id/gallons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Enter amt of gallons"
+            android:layout_marginTop="20dp"
+            android:inputType="numberDecimal"/>
 
-    <EditText
-        android:id="@+id/pricePerGallon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Enter price per gallon"
-        android:layout_marginTop="20dp"
-        android:inputType="numberDecimal"/>
+        <EditText
+            android:id="@+id/pricePerGallon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Enter price per gallon"
+            android:layout_marginTop="20dp"
+            android:inputType="numberDecimal"/>
+    </android.support.design.widget.TextInputLayout>
 
 
     <Button

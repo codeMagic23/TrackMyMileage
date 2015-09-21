@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,11 @@ public class InputMileage extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_mileage);
 
+        // have the first box grab focus
+        if(((EditText) findViewById(R.id.mileage)).requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+
     }
 
     public void saveFillLog(View v) {
@@ -43,6 +49,7 @@ public class InputMileage extends Activity {
         DaoMaster daoMaster = new DaoMaster(db);
         DaoSession daoSession = daoMaster.newSession();
         FillLogDao fillDao = daoSession.getFillLogDao();
+
         long mileage = Long.valueOf(((EditText) findViewById(R.id.mileage)).getText().toString());
         double gallons = Double.valueOf(((EditText) findViewById(R.id.gallons)).getText().toString());
         double mpg = 0;
