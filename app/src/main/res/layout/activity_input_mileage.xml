@@ -28,16 +28,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Mileage"
-            android:inputType="numberDecimal"
-            android:layout_marginTop="20dp"/>
+            android:inputType="numberDecimal"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Gallons">
+        android:layout_marginBottom="8dp">
         <EditText
             android:id="@+id/gallons"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Gallons"
             android:layout_marginTop="20dp"
@@ -45,11 +44,10 @@
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Price per gallon">
+        android:layout_height="wrap_content">
         <EditText
             android:id="@+id/pricePerGallon"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Price per gallon"
             android:layout_marginTop="20dp"
