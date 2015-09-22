@@ -42,10 +42,10 @@
             android:layout_margin="16dp"
             app:layout_anchor="@+id/my_recycler_view"
             app:layout_anchorGravity="bottom|end"
+            android:src="@drawable/ic_add_white_24dp"
             app:layout_behavior="com.codemagic.trackmymileage.FABScrollBehavior"
+            app:borderWidth="0dp"
+            app:rippleColor="@color/material_grey_100"
             android:onClick="newFillup"/>
     </android.support.design.widget.CoordinatorLayout>
-
-
-
 </RelativeLayout>
