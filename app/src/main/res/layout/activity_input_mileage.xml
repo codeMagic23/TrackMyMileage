@@ -20,29 +20,38 @@
         android:layout_height="wrap_content"
         android:text="4/9/1980"/>
     <android.support.design.widget.TextInputLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp">
         <EditText
             android:id="@+id/mileage"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter your current mileage"
-            android:layout_marginTop="20dp"
-            android:inputType="numberDecimal"/>
-
+            android:hint="Mileage"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="20dp"/>
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Gallons">
         <EditText
             android:id="@+id/gallons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter amt of gallons"
+            android:hint="Gallons"
             android:layout_marginTop="20dp"
             android:inputType="numberDecimal"/>
-
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Price per gallon">
         <EditText
             android:id="@+id/pricePerGallon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter price per gallon"
+            android:hint="Price per gallon"
             android:layout_marginTop="20dp"
             android:inputType="numberDecimal"/>
     </android.support.design.widget.TextInputLayout>
