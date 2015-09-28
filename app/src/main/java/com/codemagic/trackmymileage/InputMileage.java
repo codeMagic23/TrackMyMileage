@@ -58,12 +58,14 @@ public class InputMileage extends Activity {
             Log.i("TAG", "Count: " + fillDao.count());
             // ToDo get the mileage from the last log
             // get the last mileage entered to obtain mpg
-            List<FillLog> prevEntry = fillDao.queryBuilder().where(FillLogDao.Properties.CurMiles.isNotNull()).limit(1).list();
+            List<FillLog> prevEntry = fillDao.queryBuilder().where(FillLogDao.Properties.FillDate.isNotNull()).orderDesc(FillLogDao.Properties.FillDate).limit(1).list();
+
             long prevMileage = 0;
 
             if (prevEntry != null) {
                 for (FillLog entry : prevEntry) {
                     prevMileage = entry.getCurMiles();
+                    Log.i("TAG", "Previous... " + entry.getCurMiles());
                 }
 
                 mpg = Math.round((mileage - prevMileage) / gallons);
@@ -92,8 +94,6 @@ public class InputMileage extends Activity {
 
      //   Toast.makeText(v.getContext(), "Inserted: " + inserted.toString(), Toast.LENGTH_SHORT).show();
 
-        Intent i = new Intent(v.getContext(), FillLogList.class);
-        startActivity(i);
         finish();
 
     }
