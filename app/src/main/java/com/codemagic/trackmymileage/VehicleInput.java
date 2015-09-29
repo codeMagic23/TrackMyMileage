@@ -49,8 +49,10 @@ public class VehicleInput extends ActionBarActivity {
         vehicleDao.insert(vehicle);
         Log.d("TAG", "Inserted new vehicle, ID: " + vehicle.getId());
 
-        Intent i = new Intent(v.getContext(),VehicleList.class);
-        startActivity(i);
+     //   Intent i = new Intent(v.getContext(),VehicleList.class);
+     //   startActivity(i);
+
+        finish();
 
     }
 

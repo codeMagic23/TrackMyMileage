@@ -94,19 +94,6 @@ public class FillLogList extends AppCompatActivity {
         DecimalFormat format = new DecimalFormat("$#.##");
         for (FillLog log:fillLogs) {
             data.add(log);
-            /*
-            log.setFillDate(log.getFillDate());
-            log.setCurMiles(log.getCurMiles());
-            log.setPricePerGallon(log.getPricePerGallon());
-            log.setGallons(log.getGallons());
-
-            data.add(String.valueOf(
-
-
-                    + "Gallons: " + log.getGallons() + "\n"
-                    + "Total Cost: " + format.format(log.getGallons() * log.getPricePerGallon()) + "\n"
-                    + "MPG: " + log.getMpg());*/
-
         }
 
         return data;
@@ -115,6 +102,11 @@ public class FillLogList extends AppCompatActivity {
 
     public void newFillup(View v) {
         Intent i = new Intent(v.getContext(), InputMileage.class);
+        startActivity(i);
+    }
+
+    public void addVehicle(View v) {
+        Intent i = new Intent(v.getContext(), VehicleInput.class);
         startActivity(i);
     }
 }

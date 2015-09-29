@@ -17,11 +17,15 @@ import com.codemagic.TrackMyMileageDB.database.dao.DaoMaster;
 import com.codemagic.TrackMyMileageDB.database.dao.DaoSession;
 import com.codemagic.TrackMyMileageDB.database.dao.FillLog;
 import com.codemagic.TrackMyMileageDB.database.dao.FillLogDao;
+import com.codemagic.TrackMyMileageDB.database.dao.Vehicle;
 import com.codemagic.TrackMyMileageDB.database.dao.VehicleDao;
+
+import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.List;
@@ -34,6 +38,13 @@ public class InputMileage extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_mileage);
+        TextView dateTV = (TextView) findViewById(R.id.date);
+        TextView vehicleNameTV = (TextView) findViewById(R.id.vehicleName);
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        dateTV.setText(format.format(c.getTime()));
+        vehicleNameTV.setText(getVehicle());
+
 
         // have the first box grab focus
         if(((EditText) findViewById(R.id.mileage)).requestFocus()) {
@@ -98,6 +109,25 @@ public class InputMileage extends Activity {
 
     }
 
+    private String getVehicle() {
+        String vehicleName = "";
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "vehicle-db", null);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(db);
+        DaoSession daoSession = daoMaster.newSession();
+        VehicleDao vehicleDao = daoSession.getVehicleDao();
+
+        List<Vehicle> vehicles = vehicleDao.queryBuilder().where(VehicleDao.Properties.Id.isNotNull()).orderAsc(VehicleDao.Properties.Id).limit(1).list();
+     //   List<Vehicle> vehicles = vehicleDao.queryBuilder().where(VehicleDao.Properties.Id.isNotNull()).orderAsc(VehicleDao.Properties.Id).limit(1).list();
+
+        for (Vehicle vehicle : vehicles) {
+            vehicleName = vehicle.getVehicleName();
+        }
+
+        return vehicleName;
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -118,5 +148,10 @@ public class InputMileage extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addVehicle(View v) {
+        Intent i = new Intent(v.getContext(), VehicleInput.class);
+        startActivity(i);
     }
 }
