@@ -11,19 +11,18 @@ public class FillLog {
     private double gallons;
     private Double pricePerGallon;
     private long curMiles;
-    /** Not-null value. */
-    private String vehicleName;
+    private long vehicleId;
     private Double mpg;
 
     public FillLog() {
     }
 
-    public FillLog(java.util.Date fillDate, double gallons, Double pricePerGallon, long curMiles, String vehicleName, Double mpg) {
+    public FillLog(java.util.Date fillDate, double gallons, Double pricePerGallon, long curMiles, long vehicleId, Double mpg) {
         this.fillDate = fillDate;
         this.gallons = gallons;
         this.pricePerGallon = pricePerGallon;
         this.curMiles = curMiles;
-        this.vehicleName = vehicleName;
+        this.vehicleId = vehicleId;
         this.mpg = mpg;
     }
 
@@ -61,14 +60,12 @@ public class FillLog {
         this.curMiles = curMiles;
     }
 
-    /** Not-null value. */
-    public String getVehicleName() {
-        return vehicleName;
+    public long getVehicleId() {
+        return vehicleId;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setVehicleName(String vehicleName) {
-        this.vehicleName = vehicleName;
+    public void setVehicleId(long vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
     public Double getMpg() {

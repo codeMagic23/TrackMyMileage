@@ -55,7 +55,7 @@ public class GreenDaoGenerator {
              fillLog.addDoubleProperty("gallons").notNull();
              fillLog.addDoubleProperty("pricePerGallon");
              fillLog.addLongProperty("curMiles").notNull();
-             fillLog.addStringProperty("vehicleName").notNull();
+             fillLog.addLongProperty("vehicleId").notNull();
             fillLog.addDoubleProperty("mpg");
     }
 

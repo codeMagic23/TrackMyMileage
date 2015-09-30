@@ -12,12 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.codemagic.TrackMyMileageDB.database.dao.DaoMaster;
-import com.codemagic.TrackMyMileageDB.database.dao.DaoSession;
-import com.codemagic.TrackMyMileageDB.database.dao.FillLog;
-import com.codemagic.TrackMyMileageDB.database.dao.FillLogDao;
-import com.codemagic.TrackMyMileageDB.database.dao.Vehicle;
-import com.codemagic.TrackMyMileageDB.database.dao.VehicleDao;
+import com.codemagic.TrackMyMileage.database.dao.DaoMaster;
+import com.codemagic.TrackMyMileage.database.dao.DaoSession;
+import com.codemagic.TrackMyMileage.database.dao.FillLog;
+import com.codemagic.TrackMyMileage.database.dao.FillLogDao;
+import com.codemagic.TrackMyMileage.database.dao.Vehicle;
+import com.codemagic.TrackMyMileage.database.dao.VehicleDao;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,6 +27,8 @@ import java.util.Locale;
 
 
 public class InputMileage extends Activity {
+
+    long vehicleId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +88,8 @@ public class InputMileage extends Activity {
             e.printStackTrace();
         }
     */
-        FillLog log = new FillLog(fillDate, gallons, price, mileage, ((TextView) findViewById(R.id.vehicleName)).getText().toString(), mpg);
+        TextView tv = (TextView) findViewById(R.id.vehicleName);
+        FillLog log = new FillLog(fillDate, gallons, price, mileage, vehicleId, mpg);
         fillDao.insert(log);
         finish();
 
@@ -94,6 +97,7 @@ public class InputMileage extends Activity {
 
     private String getVehicle() {
         String vehicleName = "";
+
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "vehicle-db", null);
         SQLiteDatabase db = helper.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(db);
@@ -104,6 +108,7 @@ public class InputMileage extends Activity {
 
         for (Vehicle vehicle : vehicles) {
             vehicleName = vehicle.getVehicleName();
+            vehicleId = vehicle.getId();
         }
 
         return vehicleName;
