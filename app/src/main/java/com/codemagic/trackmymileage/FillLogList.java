@@ -1,20 +1,23 @@
 package com.codemagic.trackmymileage;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
-import com.codemagic.TrackMyMileageDB.database.dao.DaoMaster;
-import com.codemagic.TrackMyMileageDB.database.dao.DaoSession;
-import com.codemagic.TrackMyMileageDB.database.dao.FillLog;
-import com.codemagic.TrackMyMileageDB.database.dao.FillLogDao;
+import com.codemagic.TrackMyMileage.database.dao.DaoMaster;
+import com.codemagic.TrackMyMileage.database.dao.DaoSession;
+import com.codemagic.TrackMyMileage.database.dao.FillLog;
+import com.codemagic.TrackMyMileage.database.dao.FillLogDao;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -39,6 +42,12 @@ public class FillLogList extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         Toolbar toolBar = (Toolbar) findViewById(R.id.myToolBar);
+        TextView titleTV = (TextView) toolBar.findViewById(R.id.titleTV);
+        titleTV.setText(getClass().getSimpleName());
+
+        android.support.design.widget.FloatingActionButton v = (android.support.design.widget.FloatingActionButton) findViewById(R.id.fab);
+        ColorStateList csl = new ColorStateList(new int[][]{new int[0]}, new int[]{getResources().getColor(R.color.colorPrimary)});
+        v.setBackgroundTintList(csl);
 //        setSupportActionBar(toolBar);
 
         // use this setting to improve performance if you know that changes
@@ -50,7 +59,7 @@ public class FillLogList extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         data = getData();
-      //  Toast.makeText(this, "Data in List: " + data.toString(), Toast.LENGTH_SHORT).show();
+
         // specify an adapter
         mAdapter = new FillLogAdapter(this, R.layout.mileage_card, data);
         mRecyclerView.setAdapter(mAdapter);

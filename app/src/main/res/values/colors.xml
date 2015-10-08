@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="colorPrimary" type="color">#0CB5ED</item>
+    <item name="colorPrimary" type="color"><!--#0CB5ED-->#1976D2</item>
+    <item name="colorSecondary" type="color">#FF9800</item>
+    <item name="white" type="color">#ffffff</item>
 </resources>

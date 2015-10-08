@@ -5,25 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.codemagic.trackmymileage.FillLogList">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/myToolBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:elevation="@dimen/abc_button_inset_horizontal_material"
-        android:background="?attr/colorPrimary">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="My TextView in my ToolBar"
-            android:gravity="center"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_add"
-            android:layout_marginLeft="50dp"
-            android:onClick="addVehicle"/>
-    </android.support.v7.widget.Toolbar>
+    <include layout="@layout/my_toolbar"
+        android:id="@+id/myToolBar"/>
     <android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -43,10 +26,13 @@
             android:layout_margin="16dp"
             app:layout_anchor="@+id/my_recycler_view"
             app:layout_anchorGravity="bottom|end"
-            android:src="@drawable/ic_add_white_24dp"
+            android:src="@android:drawable/ic_input_add"
             app:layout_behavior="com.codemagic.trackmymileage.FABScrollBehavior"
             app:borderWidth="0dp"
             app:rippleColor="@color/material_grey_100"
-            android:onClick="newFillup"/>
+            android:elevation="12dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:onClick="newFillup"
+            app:backgroundTint="@color/colorPrimary" />
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

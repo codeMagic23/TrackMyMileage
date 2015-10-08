@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,8 +28,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static android.support.design.widget.Snackbar.*;
 
-public class InputMileage extends Activity {
+
+public class InputMileage extends Activity implements View.OnClickListener {
 
     long vehicleId;
 
@@ -36,10 +41,15 @@ public class InputMileage extends Activity {
         setContentView(R.layout.activity_input_mileage);
         TextView dateTV = (TextView) findViewById(R.id.date);
         TextView vehicleNameTV = (TextView) findViewById(R.id.vehicleName);
+        vehicleNameTV.setOnClickListener(this);
         Calendar c = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
         dateTV.setText(format.format(c.getTime()));
         vehicleNameTV.setText(getVehicle());
+
+        Toolbar toolBar = (Toolbar) findViewById(R.id.myToolBar);
+        TextView titleTV = (TextView) toolBar.findViewById(R.id.titleTV);
+        titleTV.setText(getClass().getSimpleName());
 
 
         // have the first box grab focus
@@ -57,42 +67,49 @@ public class InputMileage extends Activity {
         DaoSession daoSession = daoMaster.newSession();
         FillLogDao fillDao = daoSession.getFillLogDao();
 
-        long mileage = Long.valueOf(((EditText) findViewById(R.id.mileage)).getText().toString());
-        double gallons = Double.valueOf(((EditText) findViewById(R.id.gallons)).getText().toString());
-        double mpg = 0;
+        try {
+            long mileage = Long.valueOf(((EditText) findViewById(R.id.mileage)).getText().toString());
+            double gallons = Double.valueOf(((EditText) findViewById(R.id.gallons)).getText().toString());
+            double mpg = 0;
 
-        if (fillDao.count() > 0) {
-            // get the last mileage entered to obtain mpg
-            List<FillLog> prevEntry = fillDao.queryBuilder().where(FillLogDao.Properties.FillDate.isNotNull()).orderDesc(FillLogDao.Properties.FillDate).limit(1).list();
+            if (fillDao.count() > 0) {
+                // get the last mileage entered to obtain mpg
+                List<FillLog> prevEntry = fillDao.queryBuilder().where(FillLogDao.Properties.FillDate.isNotNull()).orderDesc(FillLogDao.Properties.FillDate).limit(1).list();
 
-            long prevMileage = 0;
+                long prevMileage = 0;
 
-            if (prevEntry != null) {
-                for (FillLog entry : prevEntry) {
-                    prevMileage = entry.getCurMiles();
+                if (prevEntry != null) {
+                    for (FillLog entry : prevEntry) {
+                        prevMileage = entry.getCurMiles();
+                    }
                 }
 
                 mpg = Math.round((mileage - prevMileage) / gallons);
             }
-        }
 
         double price = Double.valueOf(((EditText) findViewById(R.id.pricePerGallon)).getText().toString());
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
         Date fillDate = new Date();
-     /*
-        Date fillDate = new Date(System.currentTimeMillis());
-        try {
-            fillDate = format.parse(((TextView) findViewById(R.id.date)).getText().toString());
-            Toast.makeText(this, "Date: " + fillDate, Toast.LENGTH_SHORT).show();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    */
+        /*
+            Date fillDate = new Date(System.currentTimeMillis());
+            try {
+                fillDate = format.parse(((TextView) findViewById(R.id.date)).getText().toString());
+                Toast.makeText(this, "Date: " + fillDate, Toast.LENGTH_SHORT).show();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        */
         TextView tv = (TextView) findViewById(R.id.vehicleName);
         FillLog log = new FillLog(fillDate, gallons, price, mileage, vehicleId, mpg);
         fillDao.insert(log);
         finish();
+    } catch (NumberFormatException e) {
 
+        Toast toast = new Toast(this);
+            toast.makeText(this, "Invalid entry(s)", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
     }
 
     private String getVehicle() {
@@ -140,5 +157,13 @@ public class InputMileage extends Activity {
     public void addVehicle(View v) {
         Intent i = new Intent(v.getContext(), VehicleInput.class);
         startActivity(i);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.vehicleName:
+                Toast.makeText(InputMileage.this, "clicked!", Toast.LENGTH_SHORT).show();
+        }
     }
 }

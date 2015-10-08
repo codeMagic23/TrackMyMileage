@@ -5,11 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.codemagic.TrackMyMileageDB.database.dao.FillLog;
+import com.codemagic.TrackMyMileage.database.dao.FillLog;
 import com.codemagic.trackmymileage.R;
 
 import java.util.ArrayList;
