@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
@@ -31,9 +32,11 @@ public class FillLogList extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<FillLog> data;
+    private ArrayList<FillLog> mData;
 
     private List<FillLog> fillLogs;
+
+    final int REQUEST_NEW_LOG = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class FillLogList extends AppCompatActivity {
         TextView titleTV = (TextView) toolBar.findViewById(R.id.titleTV);
         titleTV.setText(getClass().getSimpleName());
 
+        // using to support changing the color of the fab for API < 21
         android.support.design.widget.FloatingActionButton v = (android.support.design.widget.FloatingActionButton) findViewById(R.id.fab);
         ColorStateList csl = new ColorStateList(new int[][]{new int[0]}, new int[]{getResources().getColor(R.color.colorPrimary)});
         v.setBackgroundTintList(csl);
@@ -58,10 +62,10 @@ public class FillLogList extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        data = getData();
+        mData = getData();
 
         // specify an adapter
-        mAdapter = new FillLogAdapter(this, R.layout.mileage_card, data);
+        mAdapter = new FillLogAdapter(this, R.layout.mileage_card, mData);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -111,11 +115,21 @@ public class FillLogList extends AppCompatActivity {
 
     public void newFillup(View v) {
         Intent i = new Intent(v.getContext(), InputMileage.class);
-        startActivity(i);
+        startActivityForResult(i, REQUEST_NEW_LOG);
     }
 
     public void addVehicle(View v) {
         Intent i = new Intent(v.getContext(), VehicleInput.class);
         startActivity(i);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            mData = getData();
+            mAdapter = new FillLogAdapter(this, R.layout.mileage_card, mData);
+            mRecyclerView.setAdapter(mAdapter);
+         //   mAdapter.notifyDataSetChanged();
+        }
     }
 }

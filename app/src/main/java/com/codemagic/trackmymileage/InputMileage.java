@@ -101,8 +101,13 @@ public class InputMileage extends Activity implements View.OnClickListener {
         */
         TextView tv = (TextView) findViewById(R.id.vehicleName);
         FillLog log = new FillLog(fillDate, gallons, price, mileage, vehicleId, mpg);
-        fillDao.insert(log);
-        finish();
+        long inserts = fillDao.insert(log);
+
+        // let the calling activity know that a record was added successfully
+            Intent i = new Intent();
+            int result = (inserts > 0) ? RESULT_OK : RESULT_CANCELED;
+            setResult(result, i);
+            finish();
     } catch (NumberFormatException e) {
 
         Toast toast = new Toast(this);

@@ -10,10 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.codemagic.TrackMyMileageDB.database.dao.DaoMaster;
-import com.codemagic.TrackMyMileageDB.database.dao.DaoSession;
-import com.codemagic.TrackMyMileageDB.database.dao.Vehicle;
-import com.codemagic.TrackMyMileageDB.database.dao.VehicleDao;
+import com.codemagic.TrackMyMileage.database.dao.DaoMaster;
+import com.codemagic.TrackMyMileage.database.dao.DaoSession;
+import com.codemagic.TrackMyMileage.database.dao.Vehicle;
+import com.codemagic.TrackMyMileage.database.dao.VehicleDao;
 
 import java.util.ArrayList;
 import java.util.List;
