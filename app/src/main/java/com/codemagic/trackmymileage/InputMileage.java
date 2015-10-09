@@ -84,7 +84,7 @@ public class InputMileage extends Activity implements View.OnClickListener {
                     }
                 }
 
-                mpg = Math.round((mileage - prevMileage) / gallons);
+                mpg = (mileage - prevMileage) / gallons;
             }
 
         double price = Double.valueOf(((EditText) findViewById(R.id.pricePerGallon)).getText().toString());

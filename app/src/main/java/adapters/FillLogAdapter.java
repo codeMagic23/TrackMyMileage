@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.codemagic.TrackMyMileage.database.dao.FillLog;
 import com.codemagic.trackmymileage.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Formatter;
 
 public class FillLogAdapter extends RecyclerView.Adapter<FillLogAdapter.ViewHolder> {
 
@@ -36,16 +38,17 @@ public class FillLogAdapter extends RecyclerView.Adapter<FillLogAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+        DecimalFormat decFormat = new DecimalFormat("##.00");
         double gallons = mData.get(position).getGallons();
         double pricePer = mData.get(position).getPricePerGallon();
-        String cost = String.valueOf(gallons*pricePer);
+        double cost = (gallons * pricePer);
 
         holder.dateTV.setText(mData.get(position).getFillDate().toString());
         holder.mileageTV.setText(mData.get(position).getCurMiles() + " miles");
-        holder.gallonsTV.setText(gallons + " gals");
-        holder.priceTV.setText("$" + pricePer + "/gal");
-        holder.totalCostTV.setText("$" + cost);
-        holder.mpgTV.setText(mData.get(position).getMpg() + "mpg");
+        holder.gallonsTV.setText(decFormat.format(gallons) + " gals");
+        holder.priceTV.setText("$" + decFormat.format(pricePer) + "/gal");
+        holder.totalCostTV.setText("$" + decFormat.format(cost));
+        holder.mpgTV.setText(decFormat.format(mData.get(position).getMpg()) + "mpg");
     }
 
     @Override
